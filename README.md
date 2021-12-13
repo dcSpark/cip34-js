@@ -4,8 +4,24 @@ A JS library for [CIP34](https://github.com/cardano-foundation/CIPs/tree/master/
 
 ## Usage
 
+Generate chain ID from registry data
+
 ```typescript
-TODO;
+import { toChainId } from "@dcspark/cip34-js";
+import registry from "@dcspark/cip34-js/registry";
+
+const chainId = toChainId({
+  networkId: registry.Mainnet.NetworkId,
+  networkMagic: registry.Mainnet.NetworkMagic,
+});
+```
+
+Get parts from chain ID
+
+```typescript
+import { fromChainId } from "@dcspark/cip34-js";
+
+const { networkId, networkMagic } = fromChainId(chainId);
 ```
 
 ## Updating
