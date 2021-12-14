@@ -2,6 +2,13 @@
 
 A JS library for [CIP34](https://github.com/cardano-foundation/CIPs/tree/master/CIP-0034) that defines chain IDs for Cardano.
 
+## Example
+
+| Network name | CIP34 chain ID     |
+| ------------ | ------------------ |
+| Testnet      | cip34:0-1097911063 |
+| Mainnet      | cip34:1-764824073  |
+
 ## Usage
 
 Generate chain ID from registry data
