@@ -1,6 +1,6 @@
 {
   "name": "@dcspark/cip34-js",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "description": "A Javascript library reference implementation for CIP34",
   "main": "./index.js",
   "types": "./index.d.ts",
