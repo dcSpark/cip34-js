@@ -1,3 +1,6 @@
+export { default as registry } from "./registry.js";
+export type * from "./registryTypes.js";
+
 export type IdPair = {
   networkId: number;
   networkMagic: number;

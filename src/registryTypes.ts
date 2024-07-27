@@ -1,13 +1,13 @@
 export interface Registry {
-  Mainnet: Net;
-  LegacyTestnet: Net;
-  PreProduction: Net;
-  Preview: Net;
+    PreProduction: Network;
+    Preview: Network;
+    Mainnet: Network;
+    LegacyTestnet: Network;
 }
 
-export interface Net {
-  Name: string;
-  NetworkId: number;
-  NetworkMagic: number;
-  GenesisHash: string;
+export interface Network {
+    Name:         string;
+    NetworkId:    number;
+    NetworkMagic: number;
+    GenesisHash:  string;
 }

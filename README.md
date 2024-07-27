@@ -35,4 +35,8 @@ const { networkId, networkMagic } = fromChainId(chainId);
 
 The current status of the registry is tracked inside the CIP repository. To keep things in sync, this project uses the CIP repo as a git submodule.
 
-To use the latest version of the registry, simply run `npm run update-submodule`.
+To use the latest version of the registry,
+1. `git submodule init`
+2. `git submodule update`
+3. (whenever you want to update afterwards) `npm run update-submodule`
+

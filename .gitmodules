@@ -1,4 +1,4 @@
 [submodule "CIPs"]
 	path = CIPs
 	url = https://github.com/cardano-foundation/CIPs
-	branch = NetworkRegistry
+	branch = master
