@@ -1,18 +1,31 @@
 {
   "name": "@dcspark/cip34-js",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "A Javascript library reference implementation for CIP34",
-  "main": "./index.js",
-  "types": "./index.d.ts",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.js"
+    }
+  },
   "scripts": {
-    "registry:gen-ts": "ts-node scripts/json-to-ts.ts ./src/registry.json",
+    "registry:gen-ts": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' ts-node scripts/json-to-ts.ts ./src/registry.json",
     "registry:gen-type": "quicktype ./src/registry.json --just-types --top-level Registry -o ./src/registryTypes.ts && sed -i 's/:[[:space:]]*LegacyTestnet/: Network/g' ./src/registryTypes.ts && sed -i 's/interface LegacyTestnet/interface Network/g' ./src/registryTypes.ts",
-    "build": "npm run clean && cp CIPs/CIP-0034/registry.json src/ && npm run registry:gen-type && npm run registry:gen-ts && tsc && npm run flowgen && npm run copy-misc",
+    "build": "npm run clean && cp CIPs/CIP-0034/registry.json src/ && npm run registry:gen-type && npm run registry:gen-ts && tsc && tsc-alias -p tsconfig.json && npm run flowgen",
+    "postbuild": "esm2cjs --in dist/esm --out dist/cjs -l error && npm run copy-misc",
     "clean": "rm -rf ./dist/",
-    "copy-misc": "cp package.json dist/ && cp README.md dist/ && cp ./src/registry.json dist/",
+    "copy-misc": "cp ./src/registry.json dist/cjs/ && cp ./src/registry.json dist/esm/",
     "eslint": "eslint src tests",
     "flowgen": "find . -type f -path './dist/*' -name '*.d.ts' -exec sh -c 'flowgen --no-inexact --add-flow-header $1 -o ${1%.*.*}.js.flow' _ '{}' \\;",
-    "npm-publish": "npm run verify && npm run build && cd dist && npm publish --access public && cd ..",
+    "npm-publish": "npm run verify && npm run build && npm publish --access public",
     "test": "NODE_OPTIONS=--experimental-vm-modules tsc --noEmit && jest",
     "update-submodule": "git submodule update --remote",
     "verify": "npm run eslint && npm run test"
@@ -57,5 +70,9 @@
     "ts-jest": "29.2.3",
     "ts-node": "^10.9.2",
     "typescript": "5.5.4"
+  },
+  "dependencies": {
+    "@alcalzone/esm2cjs": "^1.1.2",
+    "tsc-alias": "^1.8.10"
   }
 }
